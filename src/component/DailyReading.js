@@ -54,21 +54,7 @@ export default class DailyReadings extends Component {
         
         var date=new Date().getFullYear()+'-'+ parseInt(new Date().getMonth()+1)+'-'+new Date().getDate().toString();
         this.setState({Date:date})
-        await fetch('https://www.ewtn.com/se/readings/readingsservice.svc/day/'+date+'/en')
-        .then((response)=>response.json())
-        .then((success)=>this.setState({ReadingList:success}));
-
-
-        this.state.ReadingList.ReadingGroups[0].Readings.length===4?
-
-             this.setState({FirstReading:this.state.ReadingList.ReadingGroups[0].Readings[0].Citations[0].Reference,
-                         Psalm:this.state.ReadingList.ReadingGroups[0].Readings[1].Citations[0].Reference,
-                     SecondReading:  this.state.ReadingList.ReadingGroups[0].Readings[2].Type==='Reading 2'?
-            this.state.ReadingList.ReadingGroups[0].Readings[2].Citations[0].Reference:'',
-                    Gospel:this.state.ReadingList.ReadingGroups[0].Readings[3].Citations[0].Reference})
-                    :  this.setState({FirstReading:this.state.ReadingList.ReadingGroups[0].Readings[0].Citations[0].Reference,
-                                Psalm:this.state.ReadingList.ReadingGroups[0].Readings[1].Citations[0].Reference,
-                                Gospel:this.state.ReadingList.ReadingGroups[0].Readings[2].Citations[0].Reference})
+       this.fetchTodayReadings(date);
     }
     render() { 
         return ( 

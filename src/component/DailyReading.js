@@ -21,16 +21,17 @@ export default class DailyReadings extends Component {
 
     handleOnChange(e)
     {
+        
         this.setState({[e.target.name]:e.target.value})
         this.fetchTodayReadings(e.target.value)
     }
 
     async fetchTodayReadings(e)
     {
+        
         await fetch('https://www.ewtn.com/se/readings/readingsservice.svc/day/'+e+'/en')
         .then((response)=>response.json())
         .then((success)=>this.setState({ReadingList:success}));
-
 
         this.state.ReadingList.ReadingGroups[0].Readings.length===4?
 
@@ -41,7 +42,8 @@ export default class DailyReadings extends Component {
                     Gospel:this.state.ReadingList.ReadingGroups[0].Readings[3].Citations[0].Reference})
                     :  this.setState({FirstReading:this.state.ReadingList.ReadingGroups[0].Readings[0].Citations[0].Reference,
                                 Psalm:this.state.ReadingList.ReadingGroups[0].Readings[1].Citations[0].Reference,
-                                Gospel:this.state.ReadingList.ReadingGroups[0].Readings[2].Citations[0].Reference})
+                                Gospel:this.state.ReadingList.ReadingGroups[0].Readings[2].Citations[0].Reference,
+                            SecondReading:''})
     }
 
     async componentWillMount()
@@ -53,8 +55,9 @@ export default class DailyReadings extends Component {
         //Get Reading for the day
         
         var date=new Date().getFullYear()+'-'+ parseInt(new Date().getMonth()+1)+'-'+new Date().getDate().toString();
-        this.setState({Date:date})
-       this.fetchTodayReadings(date);
+       // this.setState({Date:date})
+        this.fetchTodayReadings(date)
+        
     }
     render() { 
         return ( 
